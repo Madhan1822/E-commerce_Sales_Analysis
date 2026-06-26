@@ -1,8 +1,13 @@
 # E-commerce / Retail Sales Performance Analysis
 
-A portfolio-ready data analyst project: cleans raw e-commerce order data, loads it into
-a SQLite database, runs SQL-based RFM segmentation + cohort analysis, and serves the
-results in an interactive Streamlit dashboard.
+A portfolio-ready data analyst project: generates a realistic synthetic e-commerce
+dataset, loads it into a SQLite database, runs SQL-based RFM segmentation + cohort
+analysis, and serves the results in an interactive Streamlit dashboard.
+
+The dataset is fully synthetic (generated with Faker + NumPy), mirroring the schema
+of a real-world e-commerce order system — so the project runs end-to-end with no
+external downloads, while still demonstrating the same analytical skills as if
+working with live data.
 
 ---
 
@@ -13,7 +18,7 @@ ecommerce-sales-analysis/
 ├── README.md
 ├── requirements.txt
 ├── data/
-│   ├── raw/                  <- put the real Olist CSVs here (optional)
+│   ├── raw/                  <- synthetic CSVs get generated here
 │   └── processed/            <- cleaned data + sqlite db get saved here
 ├── sql/
 │   ├── 01_create_tables.sql
@@ -21,7 +26,7 @@ ecommerce-sales-analysis/
 │   ├── 03_cohort_analysis.sql
 │   └── 04_kpi_queries.sql
 ├── src/
-│   ├── generate_sample_data.py   <- makes synthetic data so the project runs instantly
+│   ├── generate_sample_data.py   <- generates the synthetic dataset
 │   ├── load_data.py              <- loads CSVs into SQLite
 │   ├── clean_data.py             <- cleaning + feature engineering
 │   ├── rfm_segmentation.py       <- RFM scoring logic (Python version of the SQL)
@@ -62,13 +67,13 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Step 5 — Generate sample data (so you can run it immediately)
+### Step 5 — Generate the sample data
 ```
 python src\generate_sample_data.py
 ```
 This creates realistic synthetic e-commerce data (customers, orders, order items,
-products) directly in `data/raw/`, so you don't have to wait on a Kaggle download
-to start building.
+products) directly in `data/raw/`. This is the only data source the project uses —
+no external download required.
 
 ### Step 6 — Load + clean data into SQLite
 ```
@@ -92,43 +97,20 @@ This opens a browser tab at `http://localhost:8501` with the interactive dashboa
 
 ---
 
-## 3. Switching to the REAL dataset (recommended before showing this to recruiters)
-
-This project is built around the **Olist Brazilian E-Commerce dataset** (100k+ real orders).
-
-1. Go to https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce and download it
-   (free Kaggle account required).
-2. Extract the CSVs into `data/raw/` — you need at least:
-   - `olist_customers_dataset.csv`
-   - `olist_orders_dataset.csv`
-   - `olist_order_items_dataset.csv`
-   - `olist_products_dataset.csv`
-   - `olist_order_payments_dataset.csv`
-3. Open `src/load_data.py` and set:
-   ```python
-   USE_SAMPLE_DATA = False
-   ```
-4. Re-run steps 6–8 above.
-
----
-
-## 4. What this project demonstrates (for your resume/portfolio)
+## 3. What this project demonstrates (for your resume/portfolio)
 
 - **SQL**: window functions, CTEs, RFM scoring, cohort retention queries (`sql/` folder)
-- **Python/Pandas**: data cleaning, feature engineering, RFM segmentation logic
+- **Python/Pandas**: synthetic data generation, data cleaning, feature engineering, RFM segmentation logic
 - **Data visualization**: interactive Streamlit + Plotly dashboard
 - **Business storytelling**: KPI cards (revenue, AOV, repeat-purchase rate), customer
   segment breakdown, and a cohort retention heatmap — the kind of output a real
   e-commerce ops/marketing team would use
-
-### Suggested resume bullet
-> "Built an end-to-end e-commerce analytics pipeline (SQL + Python + Streamlit)
-> performing RFM customer segmentation and cohort retention analysis on 100K+ orders,
-> surfacing actionable insights via an interactive dashboard."
-
+  
 ---
 
-## 5. Next steps to extend it further
+## 4. Next steps to extend it further
 - Add a `requirements-dev.txt` with `jupyter` and build an EDA notebook
 - Deploy the dashboard for free on Streamlit Community Cloud (great for sharing a live link)
 - Add a simple churn-prediction model (logistic regression) using the RFM features
+- Swap in a real public dataset (e.g. the Olist Brazilian E-Commerce dataset on Kaggle)
+  if you want to validate the pipeline against real-world data later
